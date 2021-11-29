@@ -1,0 +1,9 @@
+.header {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.menuItem {
+  min-width: 5rem;
+  text-align: center;
+}
