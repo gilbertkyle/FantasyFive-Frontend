@@ -8,8 +8,15 @@ import {
     AUTHENTICATED_FAIL, 
     AUTHENTICATED_SUCCESS, 
     REFRESH_SUCCESS, 
-    REFRESH_FAIL } from "./types";
+    REFRESH_FAIL, 
+    REGISTER_FAIL,
+    REGISTER_SUCCESS} from "./types";
 
+interface registerProps {
+    username: string,
+    email: string,
+    password: string
+}
 
 
 export const load_user = () => async (dispatch: any)  => {
@@ -91,6 +98,38 @@ export const request_refresh = () => async (dispatch: any) => {
         });
     }
 };
+
+export const register = ({username, email, password} : registerProps) => async (dispatch: any) => {
+    const body = JSON.stringify({
+        username, email, password
+    });
+    try {
+        const response = await fetch(`/api/accounts/register/`, {
+            method: 'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: body
+        })
+        
+        if (response.status == 201) {
+            dispatch({
+                type: REGISTER_SUCCESS
+            });
+            dispatch(load_user());
+        } else {
+            dispatch({
+                type: REGISTER_FAIL
+            })
+        }
+    } catch(error: any) {
+        dispatch({
+            type: REGISTER_FAIL
+        })
+    }
+}
+
 
 export const login = (username: string, password: string) => async (dispatch: any) => {
     const body = JSON.stringify({

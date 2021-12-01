@@ -10,7 +10,7 @@ import {
     REFRESH_FAIL, 
     REFRESH_SUCCESS,
     AUTHENTICATED_FAIL,
-    AUTHENTICATED_SUCCESS
+    AUTHENTICATED_SUCCESS,
 } from "../actions/types";
 
 const initialState = {
@@ -27,11 +27,13 @@ const authReducer = (state = initialState, action: any) => {
         case REGISTER_SUCCESS:
             return {
                 ...state,
-                register_success: true
+                register_success: true,
+                isAuthenticated: true
             }
         case REGISTER_FAIL:
             return {
                 ...state,
+                isAuthenticated: false
             }
         case LOGIN_SUCCESS:
             return {

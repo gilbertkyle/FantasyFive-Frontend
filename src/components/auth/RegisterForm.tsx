@@ -1,13 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Form, Button, Input, Row, Col } from "antd";
+import { register } from "../../actions/auth";
+import { Form, Button, Input, Row, Col, message } from "antd";
 
 const RegisterForm = () => {
   const dispatch = useDispatch();
 
   const onFinish = (values: any) => {
     const { username, password, rePassword, email } = values;
-    console.log(values);
+    if (password !== rePassword) {
+      message.error("Passwords do not match");
+      return;
+    }
+    const userData = { username, email, password };
+    dispatch(register(userData));
   };
 
   const onFinishFailed = (errorInfo: any) => {
