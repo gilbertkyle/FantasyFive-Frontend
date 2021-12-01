@@ -172,7 +172,7 @@ export const logout = () => async (dispatch: any) => {
                 'Accept': 'application/json'
             }
         });
-
+        console.log(response.status)
         if (response.status === 200) {
             dispatch({
                 type: LOGOUT_SUCCESS

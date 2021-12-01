@@ -7,6 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         const {username, email, password} = req.body;
         const body = JSON.stringify({username, email, password});
         try {
+            console.log(API_URL);
             const apiRes = await fetch(`${API_URL}/api/accounts/register`, {
                 method: 'POST',
                 headers: {

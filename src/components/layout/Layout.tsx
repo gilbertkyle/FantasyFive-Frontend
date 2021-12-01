@@ -5,13 +5,17 @@ import { Layout, Menu } from "antd";
 import styles from "../../../styles/Layout.module.css";
 import Link from "next/link";
 
-import { request_refresh } from "../../actions/auth";
+import { request_refresh, logout } from "../../actions/auth";
 
 const { Header, Content, Footer } = Layout;
 
 const AppLayout = (props: any) => {
   const { isAuthenticated, user } = useSelector((state: any) => state.auth);
   const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    if (dispatch && dispatch !== null && dispatch !== undefined) dispatch(logout());
+  };
 
   useEffect(() => {
     if (dispatch && dispatch !== null && dispatch !== undefined) {
@@ -28,6 +32,13 @@ const AppLayout = (props: any) => {
             <Link href="/ffl">FFL</Link>
           </Menu.Item>
           <Menu.Item key="login">{user ? user.username : <Link href="/enter">Login</Link>}</Menu.Item>
+          {isAuthenticated ? (
+            <Menu.Item key="logout" onClick={handleLogout}>
+              Log out
+            </Menu.Item>
+          ) : (
+            <Menu.Item />
+          )}
         </Menu>
       </Header>
       <Content>{props.children}</Content>
