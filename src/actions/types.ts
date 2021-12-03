@@ -28,3 +28,6 @@ export const AUTHENTICATED_FAIL = "AUTHENTICATED_FAIL";
 export const REFRESH_FAIL = "REFRESH_FAIL";
 export const REFRESH_SUCCESS = "REFRESH_SUCCESS";
 
+export const WEEK_SUCCESS = "WEEK_SUCCESS";
+export const WEEK_FAIL = "WEEK_FAIL";
+

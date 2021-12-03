@@ -11,8 +11,37 @@ import {CREATE_LEAGUE_FAIL,
     FETCH_LEAGUE_SUCCESS,
     MAKING_PICK,
     PICK_FAIL,
-    PICK_SUCCESS
+    PICK_SUCCESS,
+    WEEK_FAIL,
+    WEEK_SUCCESS
 } from "../actions/types";
+
+export const fetchWeek = () => async (dispatch: any) => {
+    try {
+        const response = await fetch(`/api/ffl/week`, {
+            method: 'GET',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            }
+        })
+        const data = await response.json();
+        if (response.status === 200) {
+            dispatch({
+                type: WEEK_SUCCESS,
+                payload: data.week
+            })
+        } else {
+            dispatch({
+                type: WEEK_FAIL
+            })
+        }
+    } catch (error) {
+        dispatch({
+            type: WEEK_FAIL
+        })
+    }
+}
 
 
 export const updatePick = (pick: any) => async (dispatch: any) => {

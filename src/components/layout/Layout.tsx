@@ -37,7 +37,7 @@ const AppLayout = (props: any) => {
               Log out
             </Menu.Item>
           ) : (
-            <Menu.Item />
+            <Menu.Item key="nothing" />
           )}
         </Menu>
       </Header>
