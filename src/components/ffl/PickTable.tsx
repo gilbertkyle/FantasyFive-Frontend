@@ -5,7 +5,7 @@ import { Form, AutoComplete, Popconfirm, Typography, Table } from "antd";
 import { getLeagueDetail, updatePick } from "../../actions/ffl";
 import type { EditableCellProps, Player } from "../../types/ffl";
 
-const PickTable = () => {
+const PickTable = ({ admin = false }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [editingKey, setEditingKey] = useState("");
@@ -61,7 +61,8 @@ const PickTable = () => {
 
   useEffect(() => {
     const getPlayers = async () => {
-      const response = await fetch("http://localhost:8000/api/ffl/player");
+      // fix this
+      const response = await fetch("https://citizenpain.pythonanywhere.com/api/ffl/player");
       const data = await response.json();
       const autoCompleteVals = data.map((datum: Player) => {
         return {
@@ -126,7 +127,7 @@ const PickTable = () => {
               <a>Cancel</a>
             </Popconfirm>
           </span>
-        ) : pick.week == currentWeek ? (
+        ) : pick.week == currentWeek || admin ? (
           <Typography.Link disabled={editingKey !== ""} onClick={() => edit(pick)}>
             Edit
           </Typography.Link>
