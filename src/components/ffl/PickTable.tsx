@@ -62,9 +62,11 @@ const PickTable = ({ admin = false }) => {
   useEffect(() => {
     const getPlayers = async () => {
       // fix this
-      const response = await fetch("https://citizenpain.pythonanywhere.com/api/ffl/player");
+      const response = await fetch("/api/ffl/player");
       const data = await response.json();
-      const autoCompleteVals = data.map((datum: Player) => {
+      const players = data.players;
+
+      const autoCompleteVals = players.map((datum: Player) => {
         return {
           value: datum?.name,
           label: `${datum.name} - ${datum.team.toUpperCase()}`,
@@ -73,6 +75,7 @@ const PickTable = ({ admin = false }) => {
       });
       setPlayers(autoCompleteVals);
     };
+
     getPlayers();
   }, []);
 
