@@ -18,7 +18,7 @@ const FFLDashboard = (props: any) => {
       <ul>
         {leagues ? (
           leagues.map((league: any, key: number) => (
-            <li>
+            <li key={key}>
               <Link key={key} href={`/ffl/${league.pk}`}>
                 <a>{league.name}</a>
               </Link>

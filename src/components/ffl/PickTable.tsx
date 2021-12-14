@@ -5,7 +5,13 @@ import { Form, AutoComplete, Popconfirm, Typography, Table } from "antd";
 import { getLeagueDetail, updatePick } from "../../actions/ffl";
 import type { EditableCellProps, Player } from "../../types/ffl";
 
-const PickTable = ({ admin = false }) => {
+interface TableProps {
+  admin?: boolean;
+  user?: any;
+  league?: any;
+}
+
+const PickTable = ({ admin = false, user }: TableProps) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [editingKey, setEditingKey] = useState("");
@@ -13,7 +19,7 @@ const PickTable = ({ admin = false }) => {
   const [form] = Form.useForm();
 
   const league = useSelector((state: any) => state.ffl.selectedLeague);
-  const { user } = useSelector((state: any) => state.auth);
+
   const currentWeek = useSelector((state: any) => state.ffl.week);
   const myTeam = league?.teams.find((team: any) => team?.owner?.username == user?.username);
 
@@ -40,7 +46,7 @@ const PickTable = ({ admin = false }) => {
             style={{ margin: 0 }}
             rules={[
               {
-                required: true,
+                required: false,
                 message: `Please Input ${title}!`,
               },
             ]}

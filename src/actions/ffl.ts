@@ -16,6 +16,8 @@ import {CREATE_LEAGUE_FAIL,
     WEEK_SUCCESS
 } from "../actions/types";
 
+import {message} from "antd";
+
 export const fetchWeek = () => async (dispatch: any) => {
     try {
         const response = await fetch(`/api/ffl/week`, {
@@ -64,6 +66,7 @@ export const updatePick = (pick: any) => async (dispatch: any) => {
         })
         const data = await response.json()
         if (response.status === 200) {
+            message.success(`Pick successfully made.`)
             dispatch({
                 type: PICK_SUCCESS,
                 payload: data.pick
@@ -72,11 +75,9 @@ export const updatePick = (pick: any) => async (dispatch: any) => {
             dispatch({
                 type: PICK_FAIL
             })
-        }
-        
-        
-        
+        }  
     } catch (error) {
+        message.error(`${error}`)
         dispatch({
             type: PICK_FAIL,
             error: error

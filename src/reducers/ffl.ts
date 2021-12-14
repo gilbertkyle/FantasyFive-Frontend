@@ -56,12 +56,11 @@ const fflReducer = (state = initialState, action: any) => {
                 ...state,
                 selectedLeague: payload
             }
-        case PICK_SUCCESS:     
+        case PICK_SUCCESS:
             return {
                 ...state,
             }
         case WEEK_SUCCESS:
-            console.log(payload)
             return {
                 ...state,
                 week: payload
