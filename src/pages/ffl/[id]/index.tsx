@@ -12,6 +12,9 @@ const LeagueIndex = () => {
   const league = useSelector((state: any) => state.ffl.selectedLeague);
   const router = useRouter();
   const { id } = router.query;
+  const admins = league?.admins.map((admin: any) => admin.username);
+
+  const isAdmin = admins?.includes(user.username);
 
   useEffect(() => {
     dispatch(getLeagueDetail(id));
@@ -23,9 +26,11 @@ const LeagueIndex = () => {
 
   return (
     <>
-      <Link href={`/ffl/${id}/admin`}>
-        <a>Admin</a>
-      </Link>
+      {isAdmin && (
+        <Link href={`/ffl/${id}/admin`}>
+          <a>Admin</a>
+        </Link>
+      )}
       {league && user && <PickTable user={user} league={league} />}
     </>
   );

@@ -26,7 +26,9 @@ const AppLayout = (props: any) => {
   return (
     <Layout className="layout">
       <Header className={styles.header}>
-        <div className="logo" />
+        <div className="logo">
+          <h2 style={{ color: "white", letterSpacing: "1px" }}>FantasyFive</h2>
+        </div>
         <Menu mode="horizontal" theme="dark" style={{ maxWidth: "100%", minWidth: "20%" }} selectable={false}>
           <Menu.Item key="ffl">
             <Link href="/ffl">FFL</Link>

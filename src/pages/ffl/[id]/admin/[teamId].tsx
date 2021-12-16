@@ -7,8 +7,8 @@ const AdminTeamIndex = () => {
   const router = useRouter();
   const { teamId } = router.query;
   const league = useSelector((state: any) => state.ffl.selectedLeague);
-  const team = league.teams.find((team: any) => team.pk == teamId);
-  const user = team.owner;
+  const team = league?.teams.find((team: any) => team.pk == teamId);
+  const user = team?.owner;
 
   return (
     <>

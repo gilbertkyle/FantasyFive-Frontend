@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { useDispatch, useSelector } from "react-redux";
+import WithAuth from "../../components/HOCs/AuthGuard";
 
 import { getLeagues } from "../../actions/ffl";
 
@@ -38,4 +39,4 @@ const FFLDashboard = (props: any) => {
   );
 };
 
-export default FFLDashboard;
+export default WithAuth(FFLDashboard);

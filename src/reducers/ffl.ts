@@ -20,7 +20,7 @@ const initialState = {
     leagues: [],
     creatingLeague: false,
     joiningLeague: false,
-    leagueCreated: true,
+    leagueCreated: false,
     selectedLeague: null,
     week: 0
 }
