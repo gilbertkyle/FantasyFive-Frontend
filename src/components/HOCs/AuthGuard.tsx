@@ -1,19 +1,24 @@
+import React, { useEffect } from "react";
+import type { NextComponentType } from "next";
 import { useSelector } from "react-redux";
-import { useRouter } from "next/router";
-import user from "../../pages/api/accounts/user";
+import Router from "next/router";
 
-const WithAuth = (Component: any) => {
-  return (props: any) => {
-    const router = useRouter();
-    const { user } = useSelector((state: any) => state.auth);
+function withAuth<T>(Component: NextComponentType<T>) {
+  const Auth = (props: T) => {
+    const { isAuthenticated } = useSelector((state: any) => state.auth);
 
-    if (user) {
-      return <Component {...props} />;
-    }
-    router.push(`/enter`);
+    useEffect(() => {
+      if (!isAuthenticated) {
+        Router.push("/enter");
+      }
+    }, []);
 
-    return null;
+    return <Component {...props} />;
   };
-};
+  if (Component.getInitialProps) {
+    Auth.getInitialProps = Component.getInitialProps;
+  }
+  return Auth;
+}
 
-export default WithAuth;
+export default withAuth;
