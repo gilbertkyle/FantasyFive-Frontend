@@ -36,7 +36,7 @@ const PickTable = ({ admin = false, user }: TableProps) => {
     ...restProps
   }) => {
     const myPlayers = players.filter((player: Player) => player.position.toUpperCase() == dataIndex?.toUpperCase());
-    const inputNode = <AutoComplete options={myPlayers} />;
+    const inputNode = <AutoComplete options={myPlayers} filterOption={true} />;
 
     return (
       <td {...restProps}>
