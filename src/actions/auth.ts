@@ -10,12 +10,72 @@ import {
     REFRESH_SUCCESS, 
     REFRESH_FAIL, 
     REGISTER_FAIL,
-    REGISTER_SUCCESS} from "./types";
+    REGISTER_SUCCESS,
+    PASSWORD_RECOVERY_SUCCESS,
+    PASSWORD_RECOVERY_FAIL,
+    PASSWORD_SET_SUCCESS,
+    PASSWORD_SET_FAIL
+} from "./types";
 
 interface registerProps {
     username: string,
     email: string,
     password: string
+}
+
+export const reset_password = (password: string, token: string) => async (dispatch: any) => {
+    const body = JSON.stringify({password, token});
+    try {
+        const res = await fetch(`/api/accounts/password-set/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: body
+        });
+        if (res.status === 200) {
+            dispatch({
+                type: PASSWORD_SET_SUCCESS
+            })
+        } else {
+            dispatch({
+                type: PASSWORD_SET_FAIL
+            })
+        }
+
+    } catch (error: any) {
+        dispatch({
+            type: PASSWORD_SET_FAIL
+        })
+    }
+}
+
+export const recover_password = (email: string) => async (dispatch: any) => {
+    const body = JSON.stringify({email});
+    try {
+        const res = await fetch(`/api/accounts/recover/`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json'
+            },
+            body: body
+        });
+
+        //const data = await res.json();
+        if (res.status === 200) {
+            dispatch({
+                type: PASSWORD_RECOVERY_SUCCESS
+            })
+        } else {
+            dispatch({
+                type: PASSWORD_RECOVERY_FAIL
+            })
+        }
+    } catch (e: any) {
+        dispatch({
+            type: PASSWORD_RECOVERY_FAIL
+        })
+    }
 }
 
 

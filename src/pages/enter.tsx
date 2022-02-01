@@ -14,38 +14,63 @@ const EnterPage = () => {
   if (isAuthenticated) {
     router.push("/");
   }
+
+  const loginSection = (
+    <section>
+      <LoginForm />
+      <Row>
+        <Col offset={1}>
+          <small>
+            Don't have an account?{" "}
+            <span onClick={() => setLogin(!login)} style={{ cursor: "pointer" }}>
+              <a href="#">Register</a>
+            </span>
+          </small>
+        </Col>
+      </Row>
+    </section>
+  );
+
+  const pwRecoverSection = (
+    <Row>
+      <Col offset={1}>
+        <small>
+          <Link href="/account/recover">
+            <a href="#">Forgot your password?</a>
+          </Link>
+        </small>
+      </Col>
+    </Row>
+  );
+
+  const registerSection = (
+    <section>
+      <RegisterForm />
+      <Row>
+        <Col offset={1}>
+          <small>
+            Already have an account?{" "}
+            <span onClick={() => setLogin(!login)} style={{ cursor: "pointer" }}>
+              <a href="#">Log In</a>
+            </span>
+          </small>
+        </Col>
+      </Row>
+    </section>
+  );
+
   return (
-    <div>
+    <>
       {login ? (
-        <section>
-          <LoginForm />
-          <Row>
-            <Col offset={1}>
-              <small>
-                Don't have an account?{" "}
-                <span onClick={() => setLogin(!login)} style={{ cursor: "pointer" }}>
-                  Register
-                </span>
-              </small>
-            </Col>
-          </Row>
-        </section>
+        <>
+          {loginSection} {pwRecoverSection}
+        </>
       ) : (
-        <section>
-          <RegisterForm />
-          <Row>
-            <Col offset={1}>
-              <small>
-                Already have an account?{" "}
-                <span onClick={() => setLogin(!login)} style={{ cursor: "pointer" }}>
-                  Log In
-                </span>
-              </small>
-            </Col>
-          </Row>
-        </section>
+        <>
+          {registerSection} {pwRecoverSection}
+        </>
       )}
-    </div>
+    </>
   );
 };
 

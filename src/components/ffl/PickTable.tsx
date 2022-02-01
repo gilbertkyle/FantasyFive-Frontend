@@ -86,8 +86,6 @@ const PickTable = ({ admin = false, user }: TableProps) => {
   }, []);
 
   const save = async (key: React.Key) => {
-    //alert("you clicked save!");
-    //const id = key;
     const { qb, rb, wr, te, defense } = form.getFieldsValue();
     const pick: any = { qb, rb, wr, te, defense };
     pick.id = key;
@@ -99,6 +97,17 @@ const PickTable = ({ admin = false, user }: TableProps) => {
     setEditingKey("");
   };
 
+  const clear = async (key: React.Key) => {
+    const [qb, rb, wr, te, defense] = ["", "", "", "", ""];
+    const pick: any = { qb, rb, wr, te, defense };
+    pick.id = key;
+    if (dispatch && dispatch !== null && dispatch !== undefined) {
+      await dispatch(updatePick(pick));
+      // updates league with new picks
+      await dispatch(getLeagueDetail(id));
+    }
+    setEditingKey("");
+  };
   const cancel = () => {
     setEditingKey("");
   };
@@ -110,7 +119,7 @@ const PickTable = ({ admin = false, user }: TableProps) => {
   };
 
   const columns = [
-    { title: "week", dataIndex: "week", editable: false },
+    { title: "Week", dataIndex: "week", editable: false },
     { title: "Quarterback", dataIndex: "qb", editable: true },
     { title: "Points", dataIndex: "qb_points", editable: false },
     { title: "Running Back", dataIndex: "rb", editable: true },
@@ -121,6 +130,7 @@ const PickTable = ({ admin = false, user }: TableProps) => {
     { title: "Points", dataIndex: "te_points", editable: false },
     { title: "Defense", dataIndex: "defense", editable: true },
     { title: "Points", dataIndex: "defense_points", editable: false },
+    { title: "Total Points", dataIndex: "total_points", editable: false },
 
     {
       title: "Operations",
@@ -137,9 +147,14 @@ const PickTable = ({ admin = false, user }: TableProps) => {
             </Popconfirm>
           </span>
         ) : pick.week == currentWeek || admin ? (
-          <Typography.Link disabled={editingKey !== ""} onClick={() => edit(pick)}>
-            Edit
-          </Typography.Link>
+          <>
+            <Typography.Link disabled={editingKey !== ""} onClick={() => edit(pick)}>
+              Edit
+            </Typography.Link>
+            <Typography.Link disabled={!admin} onClick={() => clear(pick.id)}>
+              Clear
+            </Typography.Link>
+          </>
         ) : (
           <Typography></Typography>
         );

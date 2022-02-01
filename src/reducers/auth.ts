@@ -11,6 +11,10 @@ import {
     REFRESH_SUCCESS,
     AUTHENTICATED_FAIL,
     AUTHENTICATED_SUCCESS,
+    PASSWORD_RECOVERY_SUCCESS,
+    PASSWORD_RECOVERY_FAIL,
+    PASSWORD_SET_SUCCESS,
+    PASSWORD_SET_FAIL,
 } from "../actions/types";
 
 const initialState = {
@@ -61,11 +65,31 @@ const authReducer = (state = initialState, action: any) => {
                 user: null,
                 isAuthenticated: false
             }
-        case LOGOUT_FAIL: {
+        case LOGOUT_FAIL: 
             return {
                 ...state
             }
-        }
+        
+        case PASSWORD_RECOVERY_SUCCESS: 
+            return {
+                ...state,
+                emailSent: true
+            }
+        case PASSWORD_RECOVERY_FAIL: 
+            return {
+                ...state,
+                emailSent: false
+            }
+        case PASSWORD_SET_SUCCESS:
+            return {
+                ...state,
+                passwordSet: true
+            }
+        case PASSWORD_SET_FAIL:
+            return {
+                ...state,
+                passwordSet: false
+            }
         case AUTHENTICATED_SUCCESS:
             return {
                 ...state,

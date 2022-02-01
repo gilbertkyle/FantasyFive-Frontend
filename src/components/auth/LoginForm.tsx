@@ -32,6 +32,8 @@ const LoginForm = () => {
         onFinish={onFinish}
         onFinishFailed={onFinishFailed}
         autoComplete="off"
+        labelWrap
+        colon={false}
       >
         <Form.Item
           label="Username"
